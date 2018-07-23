@@ -1,45 +1,9 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+# Utilising Pretrained Model for Fine-Grained Species Classification 
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
 
----
+Fine grained visual categorization (FGVC) is a state-of-the-art topic in Computer vision. It focuses on distinguishing species, which tend to be similar to each other in appearance. Testing and training such model always requires much time and effort. Transfer learning is a good method to implement to tackle this problem when the dataset used by the pre-trained models and target dataset are sim- ilar. It especially works well on image-based models due to the generality of features captured in lower level network layers, such as edges and patterns. Higher level convolution layers are used to extract more complex features specific to the categories that the model was originally trained on. 
 
-## Edit a file
+However, inconsistent categories between the original dataset and target dataset occurs, fine tuning the weights of those higher level convolutional layers is a better strategy. Moreover, due to the various architecture of the pre-trained models, their convolution layers, especially the higher level one, can extract different features. Model ensembling takes advantage of those various fea- tures generating from multiple pre-trained models that greatly improves the model performance. However, there are several problems should be concerned when using transfer learning approach on FGVC based dataset, iNaturalist. 
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
-
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
-
----
-
-## Create a file
-
-Next, you’ll add a new file to this repository.
-
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
-
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
-
----
-
-## Clone a repository
-
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
-
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
-
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+Firstly, unlike the ImageNet dataset, iNaturalist dataset has im- balanced classes. This would easily lead to overfitting problem that has to be dealt with. Secondly, the similarity between species presents more challenges to the model to learn important details from limited number of pixels. In this project, four different neural network model architectures trained on ImageNet are used: VGG16, InceptionV3, ResNet152, and InceptionResNetV2. They are used as a basis to build a model tested to classify two small subsets, one contains fine-grained categories with balanced distribution, the other one contains coarse-grained categories with imbalanced dis- tribution. Since fine tuning such small dataset on pre-trained model tends to result in overfitting, context augmentation preprocessing based on Mask R-CNN and generative inpainting is applied as a novel method to prevent the model from relying on the background information. The ensemble of fine-tuned InceptionResNetV2, InceptionV3, and ResNet152 is the best model at classifying similar looking categories subset. Most of the pretrained models by themself are capable of handling the imbalanced subset well, with ResNet152 having the best performance.
