@@ -1,0 +1,2 @@
+clf_name,clf_params,clf_trainingtime,clf_val_accuracy_mean,clf_val_accuracy_std,clf_val_recallmacro_mean,clf_val_recallmacro_std
+LogisticRegression_0,"{'C': 0.1, 'class_weight': None, 'dual': False, 'fit_intercept': True, 'intercept_scaling': 1, 'max_iter': 100, 'multi_class': 'multinomial', 'n_jobs': 1, 'penalty': 'l2', 'random_state': 5703, 'solver': 'lbfgs', 'tol': 0.0001, 'verbose': 0, 'warm_start': False}",3.443082809448242,0.6437861945897815,0.01343070269659324,0.6371765648331215,0.01369780415435571
